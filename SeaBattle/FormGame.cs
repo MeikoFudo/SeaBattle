@@ -13,17 +13,17 @@ namespace SeaBattle
 {
     public partial class FormGame : Form
     {
-        public const int SIZEMAP = 10;
-        public int SIZECELL = 30;
-        public string MARKUP = "ABCDEFGHIJK";
+        public const int SIZEMAP = 10; // Задаем размер игрового поля
+        public int SIZECELL = 30; // Задаем размер клетки
+        public string MARKUP = "ABCDEFGHIJK"; // Разметка поля по столбцам
 
-        public int[,] mapPlayer = new int[SIZEMAP, SIZEMAP];
-        public int[,] opponentMap = new int[SIZEMAP, SIZEMAP];
+        public int[,] mapPlayer = new int[SIZEMAP, SIZEMAP]; // поле игрока
+        public int[,] opponentMap = new int[SIZEMAP, SIZEMAP]; // поле противника
 
         public bool isPlaying = false;
 
-        public Button[,] allMyButtons = new Button[SIZEMAP, SIZEMAP];
-        public Button[,] allOpponentButtons = new Button[SIZEMAP, SIZEMAP];
+        public Button[,] allMyButtons = new Button[SIZEMAP, SIZEMAP]; // массив кнопок поля игрока
+        public Button[,] allOpponentButtons = new Button[SIZEMAP, SIZEMAP]; // массив кнопок поля противника
         public FormGame()
         {
             InitializeComponent();
@@ -35,17 +35,17 @@ namespace SeaBattle
         public void Init()
         {
             isPlaying = false;
-            CreateMaps();
+            CreateMaps(); // создание карт 
             opponent = new Opponent(opponentMap, mapPlayer, allOpponentButtons, allMyButtons);
-            opponentMap = opponent.Ships();
+            opponentMap = opponent.Ships(); // произвольная расстановка кораблей 
         }
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
-        public void CreateMaps()
+        public void CreateMaps() // создание игровых полей
         {
-            this.Width = SIZEMAP * SIZECELL * 2 + 50;
+            this.Width = SIZEMAP * SIZECELL * 2 + 70; 
             this.Height = (SIZEMAP + 3) * SIZECELL + 20;
             for (int i = 0; i < SIZEMAP; i++)
             {
@@ -86,7 +86,7 @@ namespace SeaBattle
                     Button button = new Button();
                     button.Size = new Size(SIZECELL, SIZECELL);
                     button.BackColor = Color.White;
-                    button.Location = new Point(450 + j * SIZECELL, i * SIZECELL);
+                    button.Location = new Point(320 + j * SIZECELL, i * SIZECELL);
                     if (j == 0 || i == 0)
                     {
                         button.BackColor = Color.Gray;

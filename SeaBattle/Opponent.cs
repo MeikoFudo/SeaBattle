@@ -33,7 +33,7 @@ namespace SeaBattle
             return true;
         }
 
-        public bool IsEmpty(int i, int j, int length)
+        public bool IsEmpty(int i, int j, int length)  //Проверка на наличие метки на карте противника 
         {
             bool isEmpty = true;
 
@@ -47,7 +47,7 @@ namespace SeaBattle
             }
 
             return isEmpty;
-        }
+        }  
 
         public int[,] Ships()
         {
