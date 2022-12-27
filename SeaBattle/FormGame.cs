@@ -20,7 +20,7 @@ namespace SeaBattle
         public int[,] mapPlayer = new int[SIZEMAP, SIZEMAP]; // поле игрока
         public int[,] opponentMap = new int[SIZEMAP, SIZEMAP]; // поле противника
 
-        public bool isPlaying = false;
+        public bool isPlaying = false; // отображает нажал ли игрок на кнопку "Старт"
 
         public Button[,] allMyButtons = new Button[SIZEMAP, SIZEMAP]; // массив кнопок поля игрока
         public Button[,] allOpponentButtons = new Button[SIZEMAP, SIZEMAP]; // массив кнопок поля противника
@@ -45,9 +45,9 @@ namespace SeaBattle
         }
         public void CreateMaps() // создание игровых полей
         {
-            this.Width = SIZEMAP * SIZECELL * 2 + 70; 
+            this.Width = SIZEMAP * SIZECELL * 2 + 70;  // определяем размер игровых полей
             this.Height = (SIZEMAP + 3) * SIZECELL + 20;
-            for (int i = 0; i < SIZEMAP; i++)
+            for (int i = 0; i < SIZEMAP; i++)  // создание игрового поля игрока 
             {
                 for (int j = 0; j < SIZEMAP; j++)
                 {
@@ -55,11 +55,11 @@ namespace SeaBattle
 
                     Button button = new Button();
                     button.Size = new Size(SIZECELL, SIZECELL);
-                    button.BackColor = Color.White;
+                    button.BackColor = Color.White;// кнопки, на которых определено игровое поле , окрашиваются в белый цвет 
                     button.Location = new Point(j * SIZECELL, i * SIZECELL);
                     if (j == 0 || i == 0)
                     {
-                        button.BackColor = Color.Gray;
+                        button.BackColor = Color.Gray;// кнопки, на которых определена разметка игрового поля, окрашиваются в серый цвет
                         if (i == 0 && j > 0)
                             button.Text = MARKUP[j - 1].ToString();
                         if (j == 0 && i > 0)
@@ -76,7 +76,7 @@ namespace SeaBattle
             }
 
 
-            for (int i = 0; i < SIZEMAP; i++)
+            for (int i = 0; i < SIZEMAP; i++)// создание игрового поля противника 
             {
                 for (int j = 0; j < SIZEMAP; j++)
                 {
@@ -103,17 +103,17 @@ namespace SeaBattle
                     this.Controls.Add(button);
                 }
             }
-            Label map1 = new Label();
+            Label map1 = new Label(); // подпись поля игрока
             map1.Text = "Player 1";
             map1.Location = new Point(SIZEMAP * SIZECELL / 2, SIZEMAP * SIZECELL + 10);
             this.Controls.Add(map1);
 
-            Label map2 = new Label();
+            Label map2 = new Label();// подпись поля противника
             map2.Text = "Player 2";
             map2.Location = new Point(350 + SIZEMAP * SIZECELL / 2, SIZEMAP * SIZECELL + 10);
             this.Controls.Add(map2);
 
-            Button start = new Button();
+            Button start = new Button(); // кнопка "Старт"
             start.Text = "START";
             start.Click += new EventHandler(StartPlay);
             start.Location = new Point(0, SIZEMAP * SIZECELL + 20);
@@ -122,19 +122,19 @@ namespace SeaBattle
         public void StartPlay(object sender, EventArgs e)
         {
             isPlaying = true;
-        }
+        } // Обработчик нажатия кнопки "Старт"
 
         public void ConfShips(object sender, EventArgs e)
         {
             Button press = sender as Button;
             if (isPlaying)
             {
-                if (mapPlayer[press.Location.Y / SIZECELL, press.Location.X / SIZECELL] == 0)
+                if (mapPlayer[press.Location.Y / SIZECELL, press.Location.X / SIZECELL] == 0) // если на кнопку нажали, то она окрашивается в красный
                 {
                     press.BackColor = Color.Red;
                     mapPlayer[press.Location.Y / SIZECELL, press.Location.X / SIZECELL] = 1;
                 }
-                else
+                else // при повторном нажатии кнопка становится белой
                 {
                     press.BackColor = Color.White;
                     mapPlayer[press.Location.Y / SIZECELL, press.Location.X / SIZECELL] = 0;
@@ -152,14 +152,14 @@ namespace SeaBattle
                     offset = 320;
                 if (map[press.Location.Y / SIZECELL, (press.Location.X - offset) / SIZECELL] != 0)
                 {
-                    hit = true;
+                    hit = true; // если игрок попал, то кнопка красится в зеленый цвет
                     map[press.Location.Y / SIZECELL, (press.Location.X - offset) / SIZECELL] = 0;
-                    press.BackColor = Color.Green;
+                    press.BackColor = Color.Green; 
                     press.Text = "X";
                 }
                 else
                 {
-                    hit = false;
+                    hit = false;// если игрок не попал, то кнопка красится в черный цвет и отмечается значком "Х"
 
                     press.BackColor = Color.Black;
                 }

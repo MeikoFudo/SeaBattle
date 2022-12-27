@@ -24,7 +24,7 @@ namespace SeaBattle
             this.allMyButtons = allMyButtons;
         }
 
-        public bool Border(int i, int j)
+        public bool Border(int i, int j) // Проверка на выходы за границы карты
         {
             if (i < 0 || j < 0 || i >= FormGame.SIZEMAP || j >= FormGame.SIZEMAP)
             {
@@ -49,11 +49,11 @@ namespace SeaBattle
             return isEmpty;
         }  
 
-        public int[,] Ships()
+        public int[,] Ships() 
         {
-            int SHIPLENGTH = 4;
-            int DELTA = 4;
-            int COUNTSHIPS = 10;
+            int SHIPLENGTH = 4; // длина корабля
+            int DELTA = 4; // константа для манипуляции длинами кораблей
+            int COUNTSHIPS = 10; // количество кораблей
             Random r = new Random();
 
             int X = 0;
@@ -76,14 +76,12 @@ namespace SeaBattle
                         mapPlayer[X, k] = 1;
                     }
 
-
-
                     COUNTSHIPS--;
                     if (COUNTSHIPS <= 0)
                         break;
                 }
                 DELTA += 4;
-                SHIPLENGTH--;
+                SHIPLENGTH--; // уменьшаем длину корабля
             }
             return mapPlayer;
         }
